@@ -237,7 +237,7 @@ async function main() {
       // headless: false,
       timeout: 0,
     },
-    timeout: 60_000 * 60 * 60,
+    timeout: 3_600_000, //1 hours
   });
 
   for (let i = 1; i <= 99; i++) {
