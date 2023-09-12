@@ -1,0 +1,26 @@
+{
+  "name": "scraping-bukalapak",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cp ./package.json ./dist/",
+    "scrape": "node ./main.js",
+    "export": "node ./export.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "tsx": "^3.12.8",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "csv-stringify": "^6.4.2",
+    "puppeteer": "^21.1.1",
+    "puppeteer-cluster": "^0.23.0",
+    "unstorage": "^1.9.0"
+  }
+}
