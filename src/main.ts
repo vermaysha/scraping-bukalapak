@@ -146,7 +146,7 @@ async function scrapeShop({ page, data }: { page: Page; data: string }) {
   const key = `queue-shop/${sha1(data)}`
   await page.setViewport({ width: 1920, height: 1080 });
   await page.setRequestInterception(true);
-  await page.setDefaultNavigationTimeout(0);
+  page.setDefaultNavigationTimeout(0);
 
   page.on("request", (req) => {
     if (
@@ -254,7 +254,7 @@ async function main() {
       url.searchParams.set("page", i.toString());
       await page.setViewport({ width: 1920, height: 1080 });
       await page.setRequestInterception(true);
-      await page.setDefaultNavigationTimeout(0);
+      page.setDefaultNavigationTimeout(0);
 
       page.on("request", (req) => {
         if (
@@ -352,7 +352,7 @@ async function main() {
     const products = await storage.getItems(totalProducts);
 
     for (const product of products) {
-      await cluster.execute(product.value, scrapeProduct);
+      cluster.queue(product.value, scrapeProduct);
     }
   }
 
@@ -361,6 +361,11 @@ async function main() {
       const data = (await storage.getItem(key))?.toString();
       cluster.queue(data, scrapeProduct)
     }
+
+    if (event === 'update' && key.startsWith('queue-shop')) {
+      const data = (await storage.getItem(key))?.toString();
+      cluster.queue(data, scrapeShop)
+    }
   })
 
   const totalShops = await storage.getKeys("queue-shop");
@@ -368,7 +373,7 @@ async function main() {
     const shops = await storage.getItems(totalShops);
 
     for (const shop of shops) {
-      await cluster.execute(shop.value, scrapeShop);
+      cluster.queue(shop.value, scrapeShop);
     }
   }
 
