@@ -55,7 +55,7 @@ async function scrapeProduct({ page, data }: { page: Page; data: string }) {
     await storage.removeItem(`queue-product/${sha1(data)}`, {
       removeMeta: true
     });
-    return;
+    throw new Error((error as any).message ?? '');
   }
 
   const result = await page.evaluate(() => {
