@@ -52,7 +52,7 @@ async function scrapeProduct({ page, data }: { page: Page; data: string }) {
       timeout: 60_000,
     });
   } catch (error) {
-    await storage.removeItem(`queued-product/${sha1(data)}`, {
+    await storage.removeItem(`queue-product/${sha1(data)}`, {
       removeMeta: true
     });
     return;
@@ -136,7 +136,7 @@ async function scrapeProduct({ page, data }: { page: Page; data: string }) {
     `processed-product/${sha1(data)}`,
     JSON.stringify(result)
   );
-  await storage.removeItem(`queued-product/${sha1(data)}`, {
+  await storage.removeItem(`queue-product/${sha1(data)}`, {
     removeMeta: true
   });
 }
