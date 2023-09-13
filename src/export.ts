@@ -30,7 +30,7 @@ export async function exportProducts() {
         productInfo: val.productInfo,
         condition: val.condition,
         processTime: val.processTime,
-        description: val.description.replace(/(\r\n|\r|\n)/g, '\\n'),
+        description: val.description?.replace(/(\r\n|\r|\n)/g, '\\n'),
       };
     }).filter((n) => n && !!n.title && !!n.image);
     console.info(`${data.length} produk ditemukan !`)
