@@ -205,7 +205,14 @@ async function scrapeShop({ page, data }: { page: Page; data: string }) {
       return [];
     });
 
-    await storage.setItem(`queue-product/${sha1(data)}`, JSON.stringify(products));
+    await storage.setItems(
+      products.map((link) => {
+        return {
+          key: `queue-product/${sha1(link)}`,
+          value: link,
+        };
+      })
+    );
 
     maxPageSize = await page.evaluate(() => {
       return Number(
