@@ -160,6 +160,10 @@ async function scrapeShop({ page, data }: { page: Page; data: string }) {
     }
   });
 
+  if ((await storage.getMeta(key)).lastPage) {
+    return;
+  }
+
   let pageSize = Number((await storage.getMeta(key)).lastPage || '1');
   let maxPageSize = 1;
   do {
