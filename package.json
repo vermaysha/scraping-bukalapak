@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup && javascript-obfuscator ./dist --output ./dist/obfuscated && cp ./package.json ./dist/obfuscated",
+    "start": "node index.js",
     "scrape": "node ./main.js",
     "export": "node ./export.js"
   },
