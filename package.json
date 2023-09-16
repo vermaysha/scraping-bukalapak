@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && cp ./package.json ./dist/",
+    "build": "tsup && javascript-obfuscator ./dist --output ./dist/obfuscated && cp ./package.json ./dist/obfuscated",
     "scrape": "node ./main.js",
     "export": "node ./export.js"
   },
@@ -14,6 +14,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.6.0",
+    "javascript-obfuscator": "^4.1.0",
+    "tsup": "^7.2.0",
     "tsx": "^3.12.8",
     "typescript": "^5.2.2"
   },
@@ -22,5 +24,15 @@
     "puppeteer": "^21.1.1",
     "puppeteer-cluster": "^0.23.0",
     "unstorage": "^1.9.0"
+  },
+  "tsup": {
+    "entry": [
+      "src/main.ts",
+      "src/export.ts"
+    ],
+    "splitting": false,
+    "sourcemap": false,
+    "clean": true,
+    "minify": true
   }
 }
