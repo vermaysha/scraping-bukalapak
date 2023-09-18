@@ -32,7 +32,7 @@
     ],
     "splitting": false,
     "sourcemap": false,
-    "clean": true,
-    "minify": true
+    "clean": false,
+    "minify": false
   }
 }
